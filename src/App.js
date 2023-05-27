@@ -1,24 +1,76 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import theme from "./assets/theme";
+import { ThemeProvider } from "@mui/material/styles";
+import { Footer } from "./layout/Footer";
+import { Header } from "./layout/Header";
+import { Divider, Grid } from "@mui/material";
+import { UpperPanel } from "./layout/UpperPanel";
+import { LowerPanel } from "./layout/LowerPanel";
+import React, { useState } from "react";
+import { GitContext } from "./GitContext";
+import { MainPanel } from "./layout/MainPanel";
 
 function App() {
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState("");
+  const [repositories, setRepositories] = useState([]);
+  const [selectedRepo, setSelectedRepo] = useState("");
+  const [upper, setUpper] = useState("empty");
+  const [lower, setLower] = useState("empty");
+  const [main, setMain] = useState("empty");
+
+  const content = {
+    users,
+    setUsers,
+    selectedUser,
+    setSelectedUser,
+    repositories,
+    setRepositories,
+    selectedRepo,
+    setSelectedRepo,
+    upper,
+    setUpper,
+    lower,
+    setLower,
+    main,
+    setMain,
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div margin="0 5px">
+        <GitContext.Provider value={content}>
+          <Header />
+          <Grid container>
+            <Grid
+              item
+              xs={3.5}
+              height="calc(100vh - 8rem)"
+              borderRight="2px solid"
+              borderColor="primary.main"
+              display="flex"
+              flexDirection="column"
+            >
+              <UpperPanel />
+              <Divider />
+              <LowerPanel />
+            </Grid>
+
+            <Grid
+              item
+              xs={8.5}
+              height="calc(100vh - 8rem)"
+              display="flex"
+              flexDirection="column"
+              overflow="auto"
+            >
+              <MainPanel />
+            </Grid>
+          </Grid>
+        </GitContext.Provider>
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 }
 
