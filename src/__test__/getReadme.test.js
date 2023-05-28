@@ -15,7 +15,7 @@ describe("GitHub API", () => {
       const readmeContent = "VEVTVF9SRUFETUU=";
       const decodedReadmeContent = "TEST_README";
       const encodedReadmeContent = encodeURIComponent(decodedReadmeContent);
-      const alertIgnor = jest.spyOn(window, "alert").mockImplementation();
+      const consoleIgnor = jest.spyOn(console, "log").mockImplementation();
 
       axios.get.mockResolvedValueOnce({
         data: {
@@ -34,17 +34,17 @@ describe("GitHub API", () => {
           },
         }
       );
-      alertIgnor.mockRestore();
+      consoleIgnor.mockRestore();
     });
 
     it("Expect null due to error", async () => {
       const user = "username";
       const repo = "repo";
-      const alertIgnor = jest.spyOn(window, "alert").mockImplementation();
+      const consoleIgnor = jest.spyOn(console, "log").mockImplementation();
       axios.get.mockRejectedValueOnce(new Error("API error"));
       const result = await getReadme(user, repo);
       expect(result).toBeNull();
-      alertIgnor.mockRestore();
+      consoleIgnor.mockRestore();
     });
   });
 });

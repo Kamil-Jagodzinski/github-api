@@ -15,7 +15,7 @@ const getReadme = async (user, repo) => {
     const outReadme = decodeURIComponent(escape(decodedReadme));
     return outReadme;
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
   return null;
 };
