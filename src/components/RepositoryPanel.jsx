@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Typography, Link, Stack } from "@mui/material";
+import { Paper, Typography, Link, Stack } from "@mui/material";
 import { GitContext } from "../GitContext";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { getReadme } from "../api/getReadme";
 
 const RepositoryPanel = (props) => {
@@ -15,8 +15,20 @@ const RepositoryPanel = (props) => {
     setLower("readme");
   };
 
+  const getRandomColor = () => {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
+  };
+
+  const borderColor = useMemo(() => {
+    return getRandomColor();
+  }, []);
+
+
   return (
-    <Box
+    <Paper
       onClick={() => {
         selectedRepo();
       }}
@@ -28,7 +40,7 @@ const RepositoryPanel = (props) => {
         display: "flex",
         flexDirection: "column",
         border: "3px solid ",
-        borderColor: props.borderColor,
+        borderColor: borderColor,
         borderRadius: 4,
         boxSizing: "border-box",
         ":hover": {
@@ -69,7 +81,7 @@ const RepositoryPanel = (props) => {
           Open Issues: {openIssues}
         </Typography>
       </Stack>
-    </Box>
+    </Paper>
   );
 };
 

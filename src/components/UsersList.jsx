@@ -6,10 +6,9 @@ const UsersList = (props) => {
     <Box
       sx={{
         boxSizing: "border-box",
-       
       }}
     >
-      {props.userlist.length > 0 ? (
+      {props.userlist !== null && props.userlist.length > 0 ? (
         props.userlist.map((user) => (
           <UserCell
             login={user.login}

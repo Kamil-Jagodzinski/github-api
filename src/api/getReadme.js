@@ -15,12 +15,9 @@ const getReadme = async (user, repo) => {
     const outReadme = decodeURIComponent(escape(decodedReadme));
     return outReadme;
   } catch (error) {
-    console.error(
-      `Error fetching README for repository ${user}/${repo}:`,
-      error
-    );
-    return null;
+    alert(error);
   }
+  return null;
 };
 
 export { getReadme };

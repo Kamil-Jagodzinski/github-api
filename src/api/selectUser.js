@@ -14,15 +14,14 @@ const selectUser = async (user) => {
       followers: userData.followers,
       following: userData.following,
       public_repos: userData.public_repos,
-      updated_at: userData.updated_at
+      updated_at: userData.updated_at,
     };
 
     return userMetrics;
   } catch (error) {
-    console.log(error);
     alert(error);
   }
-  return {};
+  return null;
 };
 
 export { selectUser };

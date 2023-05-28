@@ -27,10 +27,9 @@ const loadRepositories = async (user) => {
 
     return repositoriesWithMetrics;
   } catch (error) {
-    console.log(error);
     alert(error);
   }
-  return {}
+  return null;
 };
 
 export { loadRepositories };

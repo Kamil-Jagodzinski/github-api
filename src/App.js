@@ -44,7 +44,7 @@ function App() {
           <Grid container>
             <Grid
               item
-              xs={3.5}
+              xs={4}
               height="calc(100vh - 8rem)"
               borderRight="2px solid"
               borderColor="primary.main"
@@ -58,7 +58,7 @@ function App() {
 
             <Grid
               item
-              xs={8.5}
+              xs={8}
               height="calc(100vh - 8rem)"
               display="flex"
               flexDirection="column"

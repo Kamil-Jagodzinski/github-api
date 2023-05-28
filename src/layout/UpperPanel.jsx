@@ -12,7 +12,7 @@ const UpperPanel = () => {
   return (
     <Box
       sx={{
-        minHeight: "42%",
+        minHeight: "35%",
         maxHeight: "50%",
         py: 1,
         px: 1,
