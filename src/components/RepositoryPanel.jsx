@@ -2,7 +2,7 @@ import React from "react";
 import { Paper, Typography, Link, Stack } from "@mui/material";
 import { GitContext } from "../GitContext";
 import { useContext, useMemo } from "react";
-import { getReadme } from "../api/getReadme";
+import { getReadme } from "../api/githubAPI";
 
 const RepositoryPanel = (props) => {
   const { setLower, setSelectedRepo, selectedUser } = useContext(GitContext);

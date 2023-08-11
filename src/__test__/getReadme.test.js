@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getReadme } from "../api/getReadme";
+import { getReadme } from "../api/githubAPI";
 
 jest.mock("axios");
 

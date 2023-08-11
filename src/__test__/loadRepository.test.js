@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loadRepositories } from "../api/loadRepositories";
+import { loadRepositories } from "../api/githubAPI";
 
 jest.mock("axios");
 

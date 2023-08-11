@@ -18,6 +18,7 @@ function App() {
   const [upper, setUpper] = useState("empty");
   const [lower, setLower] = useState("empty");
   const [main, setMain] = useState("empty");
+  const [isLoggedIn, setLoggedIn] = useState(false)
 
   const content = {
     users,
@@ -34,6 +35,8 @@ function App() {
     setLower,
     main,
     setMain,
+    isLoggedIn,
+    setLoggedIn
   };
 
   return (

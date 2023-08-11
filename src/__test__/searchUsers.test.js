@@ -1,5 +1,5 @@
 import axios from "axios";
-import { searchUsers } from "../api/searchUsers";
+import { searchUsers } from "../api/githubAPI";
 
 jest.mock("axios");
 

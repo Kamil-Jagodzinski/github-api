@@ -17,8 +17,6 @@ const LowerPanel = () => {
         height: "100%",
       }}
     >
-      { typeof process.env.REACT_APP_TOKEN !== "string" ? 
-          "Update .env to gain access to this panel" : <></>}
       {lower === "readme" ? (
         <ReadmeView repo={selectedRepo} />
       ) : (

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { GitContext } from "../GitContext";
-import { searchUsers } from "../api/searchUsers";
+import { searchUsers } from "../api/githubAPI";
 
 const SearchBar = () => {
   const [username, setUsername] = useState("");

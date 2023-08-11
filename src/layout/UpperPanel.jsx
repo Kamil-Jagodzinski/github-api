@@ -4,10 +4,10 @@ import { UsersList } from "../components/UsersList";
 import { UserCard } from "../components/UserCard";
 import { Box } from "@mui/material";
 import { GitContext } from "../GitContext";
+import { FollowingList } from "../components/FollowingList";
 
 const UpperPanel = () => {
-  const { upper, users, selectedUser} =
-    useContext(GitContext);
+  const { upper, users, selectedUser } = useContext(GitContext);
 
   return (
     <Box
@@ -18,11 +18,13 @@ const UpperPanel = () => {
         px: 1,
         boxSizing: "border-box",
         overflow: "auto",
-        width: "100%"
+        width: "100%",
       }}
     >
       {upper === "list" ? (
         <UsersList userlist={users} />
+      ) : upper === "following" ? (
+        <FollowingList userlist={users} />
       ) : upper === "card" ? (
         <UserCard user={selectedUser} />
       ) : (

@@ -1,8 +1,17 @@
-import { Avatar, Typography, Stack, Link } from "@mui/material";
-import { loadRepositories } from "../api/loadRepositories";
-import { selectUser } from "../api/selectUser";
+import {
+  Avatar,
+  Typography,
+  Stack,
+  Link,
+  IconButton,
+  Box,
+} from "@mui/material";
+import { loadRepositories } from "../api/githubAPI";
+import { selectUser } from "../api/githubAPI";
 import { GitContext } from "../GitContext";
 import { useContext } from "react";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 
 const UserCell = (props) => {
   const { setSelectedUser, setRepositories, setUpper, setMain } =
@@ -40,16 +49,36 @@ const UserCell = (props) => {
     >
       <Avatar src={props.avatar} />
       <Typography variant="h5"> {props.login} </Typography>
-      <Link
-        href={props.url}
-        target="_blank"
-        variant="caption"
-        underline="hover"
-        sx={{ ml: "auto" }}
-      >
-        {" "}
-        Github Profile{" "}
-      </Link>
+
+      <Box sx={{ ml: "auto" ,}}>
+        <IconButton
+          variant="outlined"
+          sx={{
+            cursor: "pointer",
+            borderColor: "white",
+            borderRadius: "10px",
+            boxSizing: "border-box",
+            mx: 2,
+            ":hover": {
+              scale: "1.02",
+              boxShadow: "inset 1px 1px 28px 0px #888888;",
+            },
+            color: "white",
+          }}
+        >
+          {1 ? <PersonAddAlt1Icon /> : <PersonRemoveIcon />}
+        </IconButton>
+
+        <Link
+          href={props.url}
+          target="_blank"
+          variant="caption"
+          underline="hover"
+        >
+          {" "}
+          Github Profile{" "}
+        </Link>
+      </Box>
     </Stack>
   );
 };

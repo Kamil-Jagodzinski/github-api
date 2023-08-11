@@ -9,6 +9,9 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { GitContext } from "../GitContext";
 import { useContext } from "react";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+
 
 const UserCard = (props) => {
   const { setUpper } = useContext(GitContext);
@@ -41,6 +44,23 @@ const UserCard = (props) => {
               }}
             />
             <Typography variant="h4">{props.user.login}</Typography>
+            <IconButton
+              variant="outlined"
+              sx={{
+                cursor: "pointer",
+                borderColor: "white",
+                borderRadius: "10px",
+                boxSizing: "border-box",
+                mx: 2,
+                ":hover": {
+                  scale: "1.02",
+                  boxShadow: "inset 1px 1px 28px 0px #888888;",
+                },
+                color: "white",
+              }}
+            >
+              {1 ? <PersonAddAlt1Icon /> : <PersonRemoveIcon />}
+            </IconButton>
             <IconButton
               onClick={() => setUpper("list")}
               sx={{
