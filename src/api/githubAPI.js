@@ -4,16 +4,14 @@ const BASE_URL = `http://localhost:8080/api/github`;
 
 const searchUsers = async (query) => {
   try {
-    const response = await axios.get(
-      BASE_URL + `/users/search/${query}`
-    );
+    const response = await axios.get(BASE_URL + `/users/search/${query}`);
     const users = response.data.map((user) => ({
       login: user.login,
       url: user.url,
       avatar: user.avatar,
     }));
 
-    console.log( users )
+    console.log(users);
 
     return users;
   } catch (error) {
@@ -23,15 +21,12 @@ const searchUsers = async (query) => {
 };
 
 const loadRepositories = async (user) => {
-
-  console.log("loading repos")
+  console.log("loading repos");
 
   try {
-    const response = await axios.get(
-      BASE_URL + `/users/${user}/repos`
-    );
+    const response = await axios.get(BASE_URL + `/users/${user}/repos`);
 
-    const repositoriesWithMetrics = response.data.map( (repo) => ({
+    const repositoriesWithMetrics = response.data.map((repo) => ({
       name: repo.name,
       url: repo.html_url,
       lang: repo.language,
@@ -50,12 +45,12 @@ const loadRepositories = async (user) => {
 
 const getReadme = async (user, repo) => {
   try {
-    console.log( BASE_URL + `repos/${user}/${repo}/readme` )
+    console.log(BASE_URL + `repos/${user}/${repo}/readme`);
     const response = await axios.get(
-      BASE_URL + `/repos/${user}/${repo}/readme`,
+      BASE_URL + `/repos/${user}/${repo}/readme`
     );
     const contentBase64 = response.data;
-    if(contentBase64 === ""){
+    if (contentBase64 === "") {
       return null;
     }
     const decodedContent = atob(contentBase64);
@@ -69,12 +64,10 @@ const getReadme = async (user, repo) => {
 
 const selectUser = async (user) => {
   try {
-    const response = await axios.get(
-      BASE_URL + `/users/${user}`
-    );
+    const response = await axios.get(BASE_URL + `/users/${user}`);
     const userData = response.data;
 
-    console.log( userData )
+    console.log(userData);
 
     const userMetrics = {
       avatar_url: userData.avatarUrl,
@@ -87,7 +80,6 @@ const selectUser = async (user) => {
       public_repos: userData.publicRepos,
       updated_at: userData.updatedAt,
     };
-    
 
     return userMetrics;
   } catch (error) {
@@ -96,4 +88,4 @@ const selectUser = async (user) => {
   return null;
 };
 
-export { searchUsers, loadRepositories, getReadme, selectUser};
+export { searchUsers, loadRepositories, getReadme, selectUser };

@@ -9,20 +9,25 @@ import { useState } from "react";
 import { FormWrapper } from "../components/FormWrapper";
 import { LoginForm } from "../components/LoginForm";
 import { RegisterForm } from "../components/RegisterForm";
-import LogoutIcon from '@mui/icons-material/Logout';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import { ApikeyForm } from "../components/ApikeyForm";
+import LogoutIcon from "@mui/icons-material/Logout";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 
 const Header = () => {
   const { setUpper, isLoggedIn } = useContext(GitContext);
   const [isLoginOpen, setLogin] = useState(false);
   const [isRegisterOpen, setRegister] = useState(false);
+  const [isKeyOpen, setKey] = useState(false);
 
   const openLogin = () => setLogin(true);
   const closeLogin = () => setLogin(false);
 
   const openRegister = () => setRegister(true);
   const closeRegister = () => setRegister(false);
+
+  const openKey = () => setKey(true);
+  const closeKey = () => setKey(false);
 
   return (
     <AppBar
@@ -73,7 +78,6 @@ const Header = () => {
           </IconButton>
         </Box>
 
-
         {isLoggedIn ? (
           <Box
             sx={{
@@ -82,7 +86,7 @@ const Header = () => {
             }}
           >
             <IconButton
-              onClick={openLogin}
+              onClick={openKey}
               variant="outlined"
               sx={{
                 cursor: "pointer",
@@ -183,6 +187,9 @@ const Header = () => {
       </FormWrapper>
       <FormWrapper isOpen={isRegisterOpen} onClose={closeRegister}>
         <RegisterForm onClose={closeRegister} />
+      </FormWrapper>
+      <FormWrapper isOpen={isKeyOpen} onClose={closeKey}>
+        <ApikeyForm onClose={closeKey} />
       </FormWrapper>
     </AppBar>
   );
