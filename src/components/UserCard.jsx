@@ -1,12 +1,49 @@
 import { Stack, Avatar, Typography, Link, IconButton, Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { GitContext } from '../GitContext'
+import { followUser, unfollowUser } from '../api/userAPI'
 import { useContext } from 'react'
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove'
 
 const UserCard = (props) => {
-    const { setUpper } = useContext(GitContext)
+    const { setUpper, followingList, setFollowingList, loggedUserId } =
+        useContext(GitContext)
+
+    const isOnFollowingList = (user) => {
+        console.log(user)
+        const loginArray = followingList.map((user) => user.login)
+        console.log(loginArray)
+        return loginArray.includes(user)
+    }
+
+    const addToFollowingList = async () => {
+        const newUser = {
+            login: props.user.login,
+            url: props.user.html_url,
+            avatar: props.user.avatar_url,
+        }
+
+        try {
+            await followUser(loggedUserId, newUser)
+            setFollowingList([...followingList, newUser])
+        } catch (error) {
+            alert(error)
+        }
+    }
+
+    const dropFromFollowingList = async () => {
+        const updatedFollowingList = followingList.filter(
+            (user) => user.login !== props.user.login
+        )
+
+        try {
+            await unfollowUser(loggedUserId, props.user.login)
+            setFollowingList(updatedFollowingList)
+        } catch (error) {
+            alert(error)
+        }
+    }
 
     return (
         <>
@@ -52,7 +89,15 @@ const UserCard = (props) => {
                                 color: 'white',
                             }}
                         >
-                            {1 ? <PersonAddAlt1Icon /> : <PersonRemoveIcon />}
+                            {isOnFollowingList(props.user.login) ? (
+                                <PersonRemoveIcon
+                                    onClick={dropFromFollowingList}
+                                />
+                            ) : (
+                                <PersonAddAlt1Icon
+                                    onClick={addToFollowingList}
+                                />
+                            )}
                         </IconButton>
                         <IconButton
                             onClick={() => setUpper('list')}

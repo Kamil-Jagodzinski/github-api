@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Typography, TextField, Button, Paper } from '@mui/material'
+import { createUser } from '../api/userAPI'
 
 const RegisterForm = (props) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [repassword, setRepassword] = useState('')
-    const [apikey, setApikey] = useState('')
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value)
@@ -19,13 +19,26 @@ const RegisterForm = (props) => {
         setRepassword(event.target.value)
     }
 
-    const handleAPIkeyChange = (event) => {
-        setApikey(event.target.value)
-    }
 
-    const handleSignUp = () => {
-        props.onClose()
-    }
+    const handleSignUp = async () => {
+        if (password !== repassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
+        const user = {
+            login: username,
+            password: password,
+        };
+
+        const success = await createUser(user);
+        if (success) {
+            alert('Registration successful');
+            props.onClose();
+        } else {
+            alert('Username already exists');
+        }
+    };
 
     return (
         <Paper
@@ -56,20 +69,11 @@ const RegisterForm = (props) => {
             />
             <TextField
                 label="Re-type password"
-                type="re-type password"
+                type="password"
                 variant="outlined"
                 fullWidth
                 value={repassword}
                 onChange={handleRepasswordChange}
-                sx={{ mb: 2 }}
-            />
-            <TextField
-                label="Github API key"
-                type="apikey"
-                variant="outlined"
-                fullWidth
-                value={apikey}
-                onChange={handleAPIkeyChange}
                 sx={{ mb: 2 }}
             />
             <Button

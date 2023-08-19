@@ -18,6 +18,8 @@ function App() {
     const [upper, setUpper] = useState('empty')
     const [lower, setLower] = useState('empty')
     const [main, setMain] = useState('empty')
+    const [loggedUserId, setLoggedUserId] = useState('')
+    const [loggedUserLogin, setLoggedUserLogin] = useState('')
     const [isLoggedIn, setLoggedIn] = useState(false)
     const [followingList, setFollowingList] = useState([])
 
@@ -40,6 +42,10 @@ function App() {
         setLoggedIn,
         followingList,
         setFollowingList,
+        loggedUserLogin,
+        setLoggedUserLogin,
+        loggedUserId,
+        setLoggedUserId,
     }
 
     return (

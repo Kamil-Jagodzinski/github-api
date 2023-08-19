@@ -1,7 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Typography, TextField, Button, Paper } from '@mui/material'
+import { verifyLogin } from '../api/userAPI'
+import { GitContext } from '../GitContext'
+
 
 const LoginForm = (props) => {
+
+    const {
+        setLoggedUserId,
+        setLoggedIn,
+        setLoggedUserLogin
+    } = useContext(GitContext)
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -13,8 +23,17 @@ const LoginForm = (props) => {
         setPassword(event.target.value)
     }
 
-    const handleLogin = () => {
-        props.onClose()
+    const handleLogin = async () => {
+        const response = await verifyLogin(username, password)
+        console.log( response )
+        if (response) {
+            setLoggedUserId(response.userId);
+            setLoggedUserLogin(response.login)
+            setLoggedIn(true);
+            props.onClose()
+        } else {
+            alert('Invalid username or password')
+        }
     }
 
     return (

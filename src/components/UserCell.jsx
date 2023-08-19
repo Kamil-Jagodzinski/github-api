@@ -3,6 +3,7 @@ import { loadRepositories } from '../api/githubAPI'
 import { selectUser } from '../api/githubAPI'
 import { GitContext } from '../GitContext'
 import { useContext } from 'react'
+import { followUser, unfollowUser } from '../api/userAPI'
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1'
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove'
 
@@ -15,19 +16,26 @@ const UserCell = (props) => {
         isLoggedIn,
         followingList,
         setFollowingList,
+        loggedUserId,
     } = useContext(GitContext)
 
-    const switchToUser = async (user) => {
-        let selected = await selectUser(user)
-        let repos = await loadRepositories(user)
-        setSelectedUser(selected)
-        setRepositories(repos)
-        setUpper('card')
-        setMain('repos')
+    const switchToUser = async (event) => {
+        event.preventDefault()
+        if (event.target === event.currentTarget) {
+            let selected = await selectUser(props.login)
+            let repos = await loadRepositories(props.login)
+            setSelectedUser(selected)
+            setRepositories(repos)
+            setUpper('card')
+            setMain('repos')
+        }
     }
 
     const isOnFollowingList = (user) => {
-        return followingList.includes(user)
+        console.log(user)
+        const loginArray = followingList.map((user) => user.login)
+        console.log(loginArray)
+        return loginArray.includes(user)
     }
 
     const addToFollowingList = async () => {
@@ -37,7 +45,12 @@ const UserCell = (props) => {
             avatar: props.avatar,
         }
 
-        setFollowingList([...followingList, newUser])
+        try {
+            await followUser(loggedUserId, newUser)
+            setFollowingList([...followingList, newUser])
+        } catch (error) {
+            alert(error)
+        }
     }
 
     const dropFromFollowingList = async () => {
@@ -45,14 +58,19 @@ const UserCell = (props) => {
             (user) => user.login !== props.login
         )
 
-        setFollowingList(updatedFollowingList)
+        try {
+            await unfollowUser(loggedUserId, props.login)
+            setFollowingList(updatedFollowingList)
+        } catch (error) {
+            alert(error)
+        }
     }
 
     return (
         <Stack
             direction="row"
             gap={3}
-            onClick={() => switchToUser(props.login)}
+            onClick={switchToUser}
             sx={{
                 m: 1,
                 cursor: 'pointer',

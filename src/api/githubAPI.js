@@ -47,8 +47,7 @@ const getReadme = async (user, repo) => {
   try {
     console.log(BASE_URL + `repos/${user}/${repo}/readme`);
     const response = await axios.get(
-      BASE_URL + `/repos/${user}/${repo}/readme`
-    );
+      BASE_URL + `/repos/${user}/${repo}/readme`);
     const contentBase64 = response.data;
     if (contentBase64 === "") {
       return null;

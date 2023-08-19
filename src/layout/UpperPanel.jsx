@@ -7,7 +7,7 @@ import { GitContext } from "../GitContext";
 import { FollowingList } from "../components/FollowingList";
 
 const UpperPanel = () => {
-  const { upper, users, selectedUser } = useContext(GitContext);
+  const { upper, users, selectedUser, followingList } = useContext(GitContext);
 
   return (
     <Box
@@ -24,7 +24,7 @@ const UpperPanel = () => {
       {upper === "list" ? (
         <UsersList userlist={users} />
       ) : upper === "following" ? (
-        <FollowingList userlist={users} />
+        <FollowingList userlist={followingList} />
       ) : upper === "card" ? (
         <UserCard user={selectedUser} />
       ) : (
